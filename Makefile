@@ -9,9 +9,11 @@ clean:
 deps:
 	pip install -r requirements.txt
 
-run:
-	python bumblebee/core.py
+run: clean
+	python run.py
 
+flake8:
+	flake8 .
 
 .PHONY: help
 help:
