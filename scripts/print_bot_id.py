@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import time
 import configparser
 
 from slackclient import SlackClient
@@ -25,4 +24,3 @@ if __name__ == '__main__':
                 print('Bot id for ' + user['name'] + 'is : ' + user.get('id'))
     else:
         print('could not find a user named : ' + BOT_NAME)
-

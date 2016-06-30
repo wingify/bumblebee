@@ -8,7 +8,7 @@ Contains the initialization of all the configuration settings for the slack bot
 
 import os
 
-from exceptions import (SettingFileNotFound, TokensNotSet)
+from bumblebee.exceptions import (SettingFileNotFound, TokensNotSet)
 
 
 READ_WEBSOCKET_DELAY = 1  # 1 second delay between reading from firehose
@@ -27,6 +27,7 @@ if os.path.isfile(SETTINGS_FILE):
         SLACK_TOKEN = config.get('slack', 'SLACK_BOT_TOKEN')
         BOT_ID = config.get('slack', 'BOT_ID')
         VWO_API_TOKEN = config.get('vwo', 'VWO_API_TOKEN')
+        ACCOUNT_ID = config.get('vwo', 'ACCOUNT_ID')
         HEADERS = {'content-type': 'application/json', 'token': VWO_API_TOKEN}
     except Exception:
         raise TokensNotSet("Set the appropriate tokens in 'config.ini'")

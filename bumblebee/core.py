@@ -1,22 +1,18 @@
 # -*- coding: utf-8 -*-
-# @Author: tasdikrahman
+# @Author: Tasdik Rahman
 # @http://tasdikrahman.me
 
 """
 Stiches everything together to make Bumblebee work
 """
 
-import os
 import time
-import configparser
 
 from slackclient import SlackClient
 
-from constants import (SLACK_TOKEN, BOT_ID, VWO_API_TOKEN,
-                       AT_BOT, READ_WEBSOCKET_DELAY)
-from exceptions import SlackClientErorr
-from helpers import (help, default_resp, parse_slack_output,
-                     handle_command)
+from bumblebee.constants import SLACK_TOKEN, READ_WEBSOCKET_DELAY
+from bumblebee.exceptions import SlackClientErorr
+from bumblebee.helpers.general_helpers import parse_slack_output, handle_command
 
 
 # instantiate Slack client
@@ -26,7 +22,7 @@ except Exception:
     raise SlackClientErorr("Invalid SLACK API TOKEN")
 
 
-if __name__ == "__main__":
+def runner():
     if slack_client.rtm_connect():
         print("StarterBot connected and running!")
         while True:

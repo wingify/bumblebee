@@ -4,14 +4,25 @@
 
 import requests
 
-from constants import HEADERS
+from bumblebee.constants import HEADERS, ACCOUNT_ID
 
-def get_all_campaigns(slack_client, channel, account_id, limit, offset):
+
+def get_all_campaigns(slack_client, channel, limit=25, offset=0):
     """
     gets all the campaigns for the particular account_id
+
+    :NOTE: BASE URL: https://app.vwo.com/api/v2/accounts/:account_id/campaigns
+           DOCS URL: http://developers.vwo.com/docs/get-the-campaigns-of-an-account
+
+    :param slack_client: SlackClient Object
+    :param channel: The channel where the bot needs to post the message
+    :param limit: limit the number of campaigns to be returned
+    :param offset: Offset where campaign should be fetched from
+    :returns: Help message
     """
+    from bumblebee.helpers.general_helpers import post_to_slack
     url = "https://app.vwo.com/api/v2/accounts/{id}/campaigns?limit={limit}&offset={offset}".format(
-        id=account_id,
+        id=ACCOUNT_ID,
         limit=limit,
         offset=offset
     )
@@ -22,29 +33,21 @@ def get_all_campaigns(slack_client, channel, account_id, limit, offset):
 
     if resp.status_code == 200:
         data = resp.json()
-        campaign_data["num_of_campaigns"] = len(data['_data'])
-        # campaign_data["campaign_wise_data"] = []
+        campaign_data["num_of_campaigns"] = len(data["_data"])
+        all_campaign_data = data["_data"]  # type<list>
 
-        # for count, campaign in enumerate(data['_data']):
-        #     temp_dict = {}
-        #     campaign_data["id"] = campaign["id"]
-        #     campaign_data["name"] = campaign["name"]
-        #     campaign_data["type"] = campaign["type"]
-        #     campaign_data["status"] = campaign["status"]
-        #     campaign_data["primaryUrl"] = campaign["status"]
-        #     campaign_data["campaign_wise_data"].append(temp_dict)
-
-        response = "Campaign data for the user specified\n"\
+        response = "Getting all Campaign data for the user specified\n"\
                    "Total number of campaigns: {0}".format(
                        campaign_data["num_of_campaigns"]
                    )
     else:
         response = "Invalid query"
 
-    slack_client.api_call("chat.postMessage", channel=channel,
-                          text=response, as_user=True)
+    post_to_slack(slack_client, channel, response)
 
 
 def campaign_status(account_id, campaign_id):
-    """Returns the campaign status from the campaign id passed to the bot"""
+    """
+    Returns the campaign status from the campaign id passed to the bot
+    """
     pass

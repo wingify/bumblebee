@@ -8,7 +8,9 @@ Custom exceptions for out Bot Bumblebee
 
 
 class BumblebeeError(Exception):
-    """A bumbleBee related error"""
+    """
+    A bumbleBee related error
+    """
 
     def __call__(self, *args):
         return self.__class__(*(self.args + args))
