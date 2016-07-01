@@ -33,7 +33,7 @@ def help(slack_client, channel):
     """
     response = "How can I help you?" \
                "\nPossible commands that you can query for:\n" \
-               "1) *get all campaigns* <limit>:<int> <offset>:<int>"
+               "1) *get all campaigns* : shows the last 10 campaign data"
     post_to_slack(slack_client, channel, response)
 
 
@@ -47,8 +47,6 @@ def default_resp(slack_client, channel):
     :returns: Default message when bot cannot parse user input
     """
     response = "Not sure what you meant. Type *@starterbot* *help* for a list of possbile commands"
-    slack_client.api_call("chat.postMessage", channel=channel,
-                          text=response, as_user=True)
     post_to_slack(slack_client, channel, response)
 
 
@@ -85,10 +83,10 @@ def handle_command(slack_client, command, channel):
     """
 
     if "get all campaigns" in command:
-        split_data = command.split()
+        # split_data = command.split()
         # making key value pairs out of this format
         # Eg: "account_id:243020 limit:25 offset:0"
-        temp_dict = {}
+        # temp_dict = {}
 
         # for elem in split_data[1:]:
         #     k, v = elem.split(":")
