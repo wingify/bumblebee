@@ -26,6 +26,20 @@ ACCOUNT_ID=
 - [VWO Docs](http://developers.vwo.com/docs/introduction/)
 - [Token Generation](https://app.vwo.com/#/developers/tokens/)
 
+## Installation
+
+Install the dependencies
+
+    $ git clone ssh://git@stash.wingify.com:7999/vwo/bumblebee_bot.git
+    $ cd bumblebee
+    $ virtualenv env              # Create virtual environment
+    $ source env/bin/activate     # Change default python to virtual one
+    (env)$ make deps
+
+Running the bot
+
+    (env)$ make run
+
 ## Miscelleneous
 
 `flake8` needs to be installed manually for `pep8` conformancy.
@@ -33,18 +47,11 @@ ACCOUNT_ID=
     $ pip install flake8
     $ make flake8
 
-## Run it
-
-Install the dependencies
-
-    $ make deps
-
-Running the bot
-
-    $ make run
 
 ## LICENSE
 
 All rights Reserved 2016
 
-Wingify Software
+Author: [Tasdik Rahman](http://tasdikrahman.me/) [(@tasdikrahman)](https://twitter.com/tasdikrahman/)
+
+[Wingify Software LTD](http://wingify.com/)

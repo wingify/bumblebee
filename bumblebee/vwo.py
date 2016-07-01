@@ -5,9 +5,11 @@
 import requests
 
 from bumblebee.constants import HEADERS, ACCOUNT_ID
+from bumblebee.helpers.vwo_helpers import (get_all_campaigns_parser,
+                                           get_all_campaigns_printer)
 
 
-def get_all_campaigns(slack_client, channel, limit=25, offset=0):
+def get_all_campaigns(slack_client, channel, limit=10, offset=0):
     """
     gets all the campaigns for the particular account_id
 
@@ -32,14 +34,9 @@ def get_all_campaigns(slack_client, channel, limit=25, offset=0):
     resp = requests.get(url, headers=HEADERS)
 
     if resp.status_code == 200:
-        data = resp.json()
-        campaign_data["num_of_campaigns"] = len(data["_data"])
-        all_campaign_data = data["_data"]  # type<list>
-
-        response = "Getting all Campaign data for the user specified\n"\
-                   "Total number of campaigns: {0}".format(
-                       campaign_data["num_of_campaigns"]
-                   )
+        data = resp.json()["_data"]  # <list>
+        campaign_data = get_all_campaigns_parser(data)  # <list>
+        response = get_all_campaigns_printer(campaign_data)
     else:
         response = "Invalid query"
 

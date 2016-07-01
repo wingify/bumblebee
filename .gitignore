@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
-bumblebee.sublime-project
-bumblebee.sublime-workspace
+
+bumblebee_slack_app.sublime-project
+bumblebee_slack_app.sublime-workspace
 
 bumblebee/config.ini
 
