@@ -5,27 +5,6 @@ Bumblebee is `slackRTM` powered slack bot written in python
 Is currently deployed over at https://wingify-test.slack.com/
 and is Invitation invite only for now. Although you can join the slack channel with you wingify email.
 
-## Configuration
-
-Set the API Tokens for the bot in the file
-
-```sh
-$ cd bumblebee && cp config.ini.example config.ini
-$ cat config.ini
-[slack]
-SLACK_BOT_TOKEN=
-BOT_ID=
-
-[vwo]
-VWO_API_TOKEN=
-ACCOUNT_ID=
-```
-
-## Links
-
-- [VWO Docs](http://developers.vwo.com/docs/introduction/)
-- [Token Generation](https://app.vwo.com/#/developers/tokens/)
-
 ## Installation
 
 Install the dependencies
@@ -36,9 +15,42 @@ Install the dependencies
     $ source env/bin/activate     # Change default python to virtual one
     (env)$ make deps
 
+Before running the bot, you have to configure it for your VWO API token and slack API tokens. Assuming that you are in the directory, `bumblebee`
+
+```sh
+$ cp config.ini.example config.ini
+$ cat config.ini
+[slack]
+SLACK_BOT_TOKEN=
+BOT_ID=
+
+[vwo]
+VWO_API_TOKEN=
+ACCOUNT_ID=
+```
+
+They are left blank, set to them up to dance with `bumblebee`
+
 Running the bot
 
     (env)$ make run
+
+## Dockerfile
+
+A quicker way to get up and running would be to build the `Dockerfile` here.
+
+```sh
+$ git clone ssh://git@stash.wingify.com:7999/vwo/bumblebee_bot.git
+$ cd bumblebee_bot
+$ docker build --no-cache=true -t bumblebee .
+$ docker run -it -e SLACK_BOT_TOKEN="YOUR_SLACK_BOT_TOKEN" \
+-e BOT_ID="YOUR_BOT_ID" \
+-e VWO_API_TOKEN="YOUR_VWO_API_TOKEN" \
+-e ACCOUNT_ID="YOUR_ACCOUNT_ID" \
+bumblebee make run
+```
+
+Where you should replace the `token` values with yours
 
 ## Miscelleneous
 
@@ -46,6 +58,11 @@ Running the bot
 
     $ pip install flake8
     $ make flake8
+
+## Links
+
+- [VWO Docs](http://developers.vwo.com/docs/introduction/)
+- [Token Generation](https://app.vwo.com/#/developers/tokens/)
 
 
 ## LICENSE
