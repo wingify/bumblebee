@@ -26,6 +26,7 @@ if os.path.isfile(SETTINGS_FILE):
     try:
         SLACK_TOKEN = config.get('slack', 'SLACK_BOT_TOKEN')
         BOT_ID = config.get('slack', 'BOT_ID')
+        BOT_NAME = config.get('slack', 'BOT_NAME')
         VWO_API_TOKEN = config.get('vwo', 'VWO_API_TOKEN')
         ACCOUNT_ID = config.get('vwo', 'ACCOUNT_ID')
         HEADERS = {'content-type': 'application/json', 'token': VWO_API_TOKEN}
@@ -39,6 +40,7 @@ else:
     # raise SettingFileNotFound(response)
     SLACK_TOKEN = os.environ.get('SLACK_BOT_TOKEN')
     BOT_ID = os.environ.get('BOT_ID')
+    BOT_NAME = os.environ.get('slack', 'BOT_NAME')
     VWO_API_TOKEN = os.environ.get('VWO_API_TOKEN')
     ACCOUNT_ID = os.environ.get('ACCOUNT_ID')
     HEADERS = {'content-type': 'application/json', 'token': VWO_API_TOKEN}

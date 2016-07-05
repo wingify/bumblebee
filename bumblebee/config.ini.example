@@ -1,6 +1,7 @@
 [slack]
 SLACK_BOT_TOKEN=
 BOT_ID=
+BOT_NAME=
 
 [vwo]
 VWO_API_TOKEN=
