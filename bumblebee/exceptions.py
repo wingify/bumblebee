@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author: Tasdik Rahman
+# @Author: Tasdik Rahman <tasdik.rahman@wingify.com>
 # @http://tasdikrahman.me
 
 """
