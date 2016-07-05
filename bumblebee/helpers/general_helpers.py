@@ -7,7 +7,7 @@ Has various helper functions defined to help the slack bot reply to a query
 """
 
 from bumblebee.constants import AT_BOT
-from bumblebee.vwo import get_all_campaigns, get_campaign_details, share_campaign
+from bumblebee.vwo.campaign import get_all_campaigns, get_campaign_details, share_campaign
 
 
 def post_to_slack(slack_client, channel, response):
