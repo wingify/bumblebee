@@ -8,7 +8,7 @@ Has various helper functions defined to help the slack bot reply to a query
 
 from bumblebee.constants import AT_BOT
 from bumblebee.vwo.campaign import get_all_campaigns, get_campaign_details, share_campaign
-
+from bumblebee.vwo.smart_code import tracking_code
 
 def post_to_slack(slack_client, channel, response):
     """
@@ -35,7 +35,8 @@ def help(slack_client, channel):
                "\nPossible commands that you can query for:\n" \
                "1) *all campaigns* : shows the last 15 campaign data \n" \
                "2) *campaign details <campaign id>* : shows all data for a specific campaign\n" \
-               "3) *share campaign <campaign_id>* : Provides a link of the campaign to be shared"
+               "3) *share campaign <campaign_id>* : Provides a link of the campaign to be shared \n" \
+               "4) *tracking code* : The tracking code to be installed in your websites"
     post_to_slack(slack_client, channel, response)
 
 
@@ -94,6 +95,9 @@ def handle_command(slack_client, command, channel):
     elif "share campaign" in command:
         campaign_id = command.split()[-1]
         share_campaign(slack_client, channel, campaign_id)
+
+    elif "tracking code" in command:
+        tracking_code(slack_client, channel)
 
     elif "help" in command:
         help(slack_client, channel)
