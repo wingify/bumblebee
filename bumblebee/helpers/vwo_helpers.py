@@ -55,8 +55,6 @@ def print_campaign_data(parsed_campaign_dict):
     return response
 
 
-
-
 def get_all_campaigns_parser(_data):
     """
     Parser for the JSON data
@@ -81,11 +79,11 @@ def get_all_campaigns_printer(campaign_data):
     :returns response: <str> which should be printed
     """
     response = "Getting all Campaign data for the user specified\n"\
-               "*Total campaigns: {0}\n*".format(len(campaign_data))
+               "*Total campaigns: {0}* \n".format(len(campaign_data))
     for campaign in campaign_data:
         response += print_campaign_data(campaign)
 
     response += "\nIf you want details for a *specific campaign*, type\n" \
-                "​*get campaign details <campaign id>*​"
+                "​*campaign details <campaign id>*​"
 
     return response

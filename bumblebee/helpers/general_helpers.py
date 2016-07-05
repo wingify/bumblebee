@@ -7,7 +7,7 @@ Has various helper functions defined to help the slack bot reply to a query
 """
 
 from bumblebee.constants import AT_BOT
-from bumblebee.vwo import get_all_campaigns, get_campaign_details
+from bumblebee.vwo import get_all_campaigns, get_campaign_details, share_campaign
 
 
 def post_to_slack(slack_client, channel, response):
@@ -33,8 +33,9 @@ def help(slack_client, channel):
     """
     response = "How can I help you?" \
                "\nPossible commands that you can query for:\n" \
-               "1) *get all campaigns* : shows the last 15 campaign data \n" \
-               "2) *get campaign details <campaign id>* : shows all data for a specific campaign\n"
+               "1) *all campaigns* : shows the last 15 campaign data \n" \
+               "2) *campaign details <campaign id>* : shows all data for a specific campaign\n" \
+               "3) *share campaign <campaign_id>* : Provides a link of the campaign to be shared"
     post_to_slack(slack_client, channel, response)
 
 
@@ -83,23 +84,16 @@ def handle_command(slack_client, command, channel):
     :param channel: The channel where the bot needs to post the message
     """
 
-    if "get all campaigns" in command:
-        # split_data = command.split()
-        # making key value pairs out of this format
-        # Eg: "account_id:243020 limit:25 offset:0"
-        # temp_dict = {}
-
-        # for elem in split_data[1:]:
-        #     k, v = elem.split(":")
-        #     temp_dict[k] = v
-
-        # limit = temp_dict.get("limit", 25)
-        # offset = temp_dict.get("offset", 0)
+    if "all campaigns" in command:
         get_all_campaigns(slack_client, channel)
 
-    elif "get campaign details" in command:
-            campaign_id = command.split()[-1]
-            get_campaign_details(slack_client, channel, campaign_id)
+    elif "campaign details" in command:
+        campaign_id = command.split()[-1]
+        get_campaign_details(slack_client, channel, campaign_id)
+
+    elif "share campaign" in command:
+        campaign_id = command.split()[-1]
+        share_campaign(slack_client, channel, campaign_id)
 
     elif "help" in command:
         help(slack_client, channel)
