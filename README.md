@@ -32,7 +32,31 @@ ACCOUNT_ID=
 
 They are left blank, set to them up to dance with `bumblebee`
 
-Running the bot
+`BOT_ID` should be retrieved using the script below
+
+```sh
+import os
+from slackclient import SlackClient
+
+
+BOT_NAME = 'starterbot'  # replace 'starterbot' with the name of your bot name
+
+slack_client = SlackClient('token')  # replace 'token' with your slack bot token
+
+
+if __name__ == "__main__":
+    api_call = slack_client.api_call("users.list")
+    if api_call.get('ok'):
+        # retrieve all users so we can find our bot
+        users = api_call.get('members')
+        for user in users:
+            if 'name' in user and user.get('name') == BOT_NAME:
+                print("Bot ID for '" + user['name'] + "' is " + user.get('id'))
+    else:
+        print("could not find bot user with the name " + BOT_NAME)
+```
+
+Place this `BOT_ID` in your `config.ini` and run the bot
 
     (env)$ make run
 
@@ -46,11 +70,10 @@ $ cd bumblebee_bot
 $ docker build --no-cache=true -t bumblebee .
 ```
 
-Next step would be to get your file `config.ini`. And place the appropriate tokens, to get your bot ID
+Next step would be to get your file `config.ini`. And place the appropriate tokens
 
-`$ docker run -it bumblebee make bot_id`
+Run your bot bot
 
-Run your bot,
 
 ```
 $ docker run -it \
