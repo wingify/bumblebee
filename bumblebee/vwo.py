@@ -6,10 +6,12 @@ import requests
 
 from bumblebee.constants import HEADERS, ACCOUNT_ID
 from bumblebee.helpers.vwo_helpers import (get_all_campaigns_parser,
-                                           get_all_campaigns_printer)
+                                           get_all_campaigns_printer,
+                                           parse_campaign_dict,
+                                           print_campaign_data)
 
 
-def get_all_campaigns(slack_client, channel, limit=10, offset=0):
+def get_all_campaigns(slack_client, channel, limit=15, offset=0):
     """
     gets all the campaigns for the particular account_id
 
@@ -43,8 +45,34 @@ def get_all_campaigns(slack_client, channel, limit=10, offset=0):
     post_to_slack(slack_client, channel, response)
 
 
-def campaign_status(account_id, campaign_id):
+def get_campaign_details(slack_client, channel, campaign_id):
     """
     Returns the campaign status from the campaign id passed to the bot
+
+
+    :NOTE: BASE URL: https://app.vwo.com/api/v2/accounts/:account_id/campaigns/:campaign_id
+           DOCS URL: http://developers.vwo.com/docs/get-details-of-a-specific-campaign
+
+    :param slack_client: SlackClient Object
+    :param channel: The channel where the bot needs to post the message
+    :param campaign_id: The campaign id whose details the user wants
     """
-    pass
+    from bumblebee.helpers.general_helpers import post_to_slack
+    url = "https://app.vwo.com/api/v2/accounts/{id}/campaigns/{campaign_id}".format(
+            id=ACCOUNT_ID,
+            campaign_id=campaign_id
+          )
+
+    campaign_data = {}
+
+    resp = requests.get(url, headers=HEADERS)
+    if resp.status_code == 200:
+        data = resp.json()["_data"]
+        campaign_data = parse_campaign_dict(data)
+        response = print_campaign_data(campaign_data)
+    elif resp.status_code == 404:
+        response = "The campaign does not exist!"
+    else:
+        response = "Invalid query"
+
+    post_to_slack(slack_client, channel, response)
