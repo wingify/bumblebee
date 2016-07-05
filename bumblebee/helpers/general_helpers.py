@@ -7,7 +7,7 @@ Has various helper functions defined to help the slack bot reply to a query
 """
 
 from bumblebee.constants import AT_BOT
-from bumblebee.vwo import get_all_campaigns
+from bumblebee.vwo import get_all_campaigns, get_campaign_details
 
 
 def post_to_slack(slack_client, channel, response):
@@ -33,7 +33,8 @@ def help(slack_client, channel):
     """
     response = "How can I help you?" \
                "\nPossible commands that you can query for:\n" \
-               "1) *get all campaigns* : shows the last 10 campaign data"
+               "1) *get all campaigns* : shows the last 15 campaign data \n" \
+               "2) *get campaign details <campaign id>* : shows all data for a specific campaign\n"
     post_to_slack(slack_client, channel, response)
 
 
@@ -46,7 +47,7 @@ def default_resp(slack_client, channel):
     :param channel: The channel where the bot needs to post the message
     :returns: Default message when bot cannot parse user input
     """
-    response = "Not sure what you meant. Type *@starterbot* *help* for a list of possbile commands"
+    response = "Not sure what you meant"
     post_to_slack(slack_client, channel, response)
 
 
@@ -96,8 +97,13 @@ def handle_command(slack_client, command, channel):
         # offset = temp_dict.get("offset", 0)
         get_all_campaigns(slack_client, channel)
 
+    elif "get campaign details" in command:
+            campaign_id = command.split()[-1]
+            get_campaign_details(slack_client, channel, campaign_id)
+
     elif "help" in command:
         help(slack_client, channel)
 
     else:
         default_resp(slack_client, channel)
+        help(slack_client, channel)
