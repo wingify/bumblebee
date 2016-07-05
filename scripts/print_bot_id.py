@@ -7,13 +7,8 @@ from slackclient import SlackClient
 
 config = configparser.ConfigParser()
 
-FILE_NAME = os.path.abspath(__file__)
-DIRNAME = os.path.dirname(FILE_NAME)
-SETTINGS_FILE = os.path.join(DIRNAME, 'bumblebee', 'config.ini')
-BOT_NAME = 'starterbot'
-
-config.read(SETTINGS_FILE)
-sc = SlackClient(config.get('slack', 'SLACK_BOT_TOKEN'))
+from bumblebee.constants import SLACK_TOKEN, BOT_NAME
+sc = SlackClient(SLACK_TOKEN)
 
 if __name__ == '__main__':
     api_call = sc.api_call("users.list")

@@ -12,6 +12,9 @@ deps:
 run: clean
 	python run.py
 
+bot_id: clean
+	python -m scripts.print_bot_id
+
 flake8:
 	flake8 .
 
