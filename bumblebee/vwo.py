@@ -76,3 +76,34 @@ def get_campaign_details(slack_client, channel, campaign_id):
         response = "Invalid query"
 
     post_to_slack(slack_client, channel, response)
+
+def share_campaign(slack_client, channel, campaign_id):
+    """
+    Get share link for a specific campaign
+
+    :NOTE: BASE URL: https://app.vwo.com/api/v2/accounts/:account_id/campaigns/:campaign_id/share
+           DOCS URL: http://developers.vwo.com/docs/get-share-link-for-a-specific-campaign
+
+
+    :param slack_client: SlackClient Object
+    :param channel: The channel where the bot needs to post the message
+    :param campaign_id: The campaign id whose details the user wants
+    """
+    from bumblebee.helpers.general_helpers import post_to_slack
+    url = "https://app.vwo.com/api/v2/accounts/{id}/campaigns/{cid}/share".format(
+                id=ACCOUNT_ID,
+                cid=campaign_id
+           )
+
+    resp = requests.get(url, headers=HEADERS)
+    if resp.status_code == 200:
+        response = "Share link for campaign {no} \n {link}".format(
+                        no=campaign_id,
+                        link=resp.json()["_data"]["shareLink"]
+                    )
+    elif resp.status_code == 404:
+        response = "The campaign does not exist!"
+    else:
+        response = "Invalid query"
+
+    post_to_slack(slack_client, channel, response)
