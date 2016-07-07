@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
-import os
+from bumblebee.constants import SLACK_TOKEN, BOT_NAME
+
 import configparser
 
 from slackclient import SlackClient
 
 config = configparser.ConfigParser()
 
-from bumblebee.constants import SLACK_TOKEN, BOT_NAME
 sc = SlackClient(SLACK_TOKEN)
 
 if __name__ == '__main__':

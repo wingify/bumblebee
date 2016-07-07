@@ -2,7 +2,7 @@
 # @Author: Tasdik Rahman
 # @http://tasdikrahman.me
 
-"""Imports the Module 'bumblebee' and runs the bot"""
+"""Imports the package 'bumblebee' and runs the bot"""
 
 from bumblebee.core import runner
 

@@ -8,7 +8,7 @@ Contains the initialization of all the configuration settings for the slack bot
 
 import os
 
-from bumblebee.exceptions import (SettingFileNotFound, TokensNotSet)
+from bumblebee.exceptions import TokensNotSet
 
 
 READ_WEBSOCKET_DELAY = 1  # 1 second delay between reading from firehose
@@ -34,7 +34,7 @@ if os.path.isfile(SETTINGS_FILE):
         raise TokensNotSet("Set the appropriate tokens in 'config.ini'")
 
 else:
-     # If the config.ini file does not exist
+    # If the config.ini file does not exist
     response = "The file 'config.ini' was not set!"\
                "\nLooking for set environment variables"
     # raise SettingFileNotFound(response)
