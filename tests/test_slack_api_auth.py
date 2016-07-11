@@ -2,17 +2,17 @@
 # @Author: Tasdik Rahman
 # @http://tasdikrahman.me
 
-"""Tests whether all the constants were set or not"""
-
 import unittest
 import os
 import configparser
+
+from slackclient import SlackClient
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_FILE = os.path.join(PROJECT_DIR, 'bumblebee', 'config.ini')
 
 
-class TestingSettingsTokens(unittest.TestCase):
+class TestSLackAuth(unittest.TestCase):
 
     @unittest.skipIf(not os.path.isfile(SETTINGS_FILE),
                     "You have to create 'config.ini' file in 'bumblebee' project root first!" \
@@ -20,13 +20,13 @@ class TestingSettingsTokens(unittest.TestCase):
     def setUp(self):
         self.config = configparser.ConfigParser()
         self.config.read(SETTINGS_FILE)
+        self.slackclient = SlackClient(self.config.get('slack', 'SLACK_BOT_TOKEN'))
 
-    def test_config_variables(self):
-        self.assertIsInstance(self.config.get('slack', 'SLACK_BOT_TOKEN'), str)
-        self.assertIsInstance(self.config.get('slack', 'BOT_ID'), str)
-        self.assertIsInstance(self.config.get('slack', 'BOT_NAME'), str)
-        self.assertIsInstance(self.config.get('vwo', 'VWO_API_TOKEN'), str)
-        self.assertIsInstance(self.config.get('vwo', 'ACCOUNT_ID'), str)
+    def test_api(self):
+        self.assertTrue(self.slackclient.api_call('auth.test')['ok'])
+
+    def test_slack_auth(self):
+        self.assertTrue(self.slackclient.api_call('auth.test')['ok'])
 
     def tearDown(self):
         pass
