@@ -18,6 +18,7 @@ Install the dependencies
 Before running the bot, you have to configure it for your VWO API token and slack API tokens. Assuming that you are in the directory, `bumblebee`
 
 ```sh
+$ cd bumblebee
 $ cp config.ini.example config.ini
 $ cat config.ini
 [slack]
@@ -35,9 +36,7 @@ They are left blank, set to them up to dance with `bumblebee`
 `BOT_ID` should be retrieved using the script below
 
 ```sh
-import os
 from slackclient import SlackClient
-
 
 BOT_NAME = 'starterbot'  # replace 'starterbot' with the name of your bot name
 
@@ -60,6 +59,15 @@ Place this `BOT_ID` in your `config.ini` and run the bot
 
     (env)$ make run
 
+**NOTE**:
+
+Check whether the bot can connect to the `slack RTM API` by running
+
+```sh
+$ cd bumblebee
+$ python -m unittest tests.test_slack_api_auth
+```
+
 ## Dockerfile
 
 A quicker way to get up and running would be to build the `Dockerfile` here.
@@ -67,10 +75,16 @@ A quicker way to get up and running would be to build the `Dockerfile` here.
 ```sh
 $ git clone ssh://git@stash.wingify.com:7999/vwo/bumblebee_bot.git
 $ cd bumblebee_bot
-$ docker build --no-cache=true -t bumblebee .
 ```
 
-Next step would be to get your file `config.ini`. And place the appropriate tokens
+Next step would be to get your file `config.ini`. And place the appropriate tokens.
+Get `BOT_ID` by running the script above.
+
+Build the image using the `dockerfile`
+
+```sh
+$ docker build --no-cache=true -t bumblebee .
+```
 
 Run your bot bot
 
@@ -100,6 +114,15 @@ already specified the required tokens in the `bumblebee/config.ini` file
 
 ```sh
 $ make bot_id
+```
+
+## Tests [WIP]
+
+Minimal tests are written at the moment and more are coming soon. To run the current test suite
+
+```sh
+$ cd bumblebee_bot
+$ make tests
 ```
 
 ## Links

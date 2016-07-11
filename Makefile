@@ -16,7 +16,7 @@ bot_id: clean
 	python -m scripts.print_bot_id
 
 tests: clean
-	nosetests -v tests
+	python run_tests.py
 
 flake8:
 	flake8 .
