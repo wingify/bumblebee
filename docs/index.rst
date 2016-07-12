@@ -1,5 +1,7 @@
-Bublebee
+Bumblebee
 ========
+
+An opinionated Slack Bot to interact with your `VWO <http://vwo.com/>`_ account
 
 Contents
 --------
