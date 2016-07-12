@@ -118,7 +118,19 @@ def handle_command(slack_client, command, channel):
             post_to_slack(slack_client, channel, response)
 
     elif "tracking code" in command:
-        tracking_code(slack_client, channel)
+        response = tracking_code()
+        data = response.json()["_data"]
+        if isinstance(data, dict):
+            sync = data["sync"]  # <str>
+            async = data["async"]  # <str>
+            response = "Tracking code to be put before the *<head>* tags \n" \
+                       "*synchronous* \n ```\n{0}\n``` \n\n" \
+                       "*asynchronous* \n ```\n{1}\n``` \n".format(
+                            sync, async
+                        )
+        else:
+            response = data
+        post_to_slack(slack_client, channel, response)
 
     elif "update campaign" in command:
         new_status = command.split()[-1]
