@@ -17,7 +17,7 @@ def parse_campaign_dict(campaign_dict):
     :returns: A <dict> which is printed by 'print_campaign_data()'
     """
     temp_dict = {}
-    temp_dict["clickCount"] = campaign_dict["clickCount"]
+    # temp_dict["clickCount"] = campaign_dict["clickCount"]
     # convert epoch time to easy readable format
     temp_dict["createdOn"] = time.strftime('%Y-%m-%d %H:%M:%S',
                                         time.localtime(campaign_dict["createdOn"])
