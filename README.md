@@ -2,6 +2,17 @@
 
 Bumblebee is `slackRTM` powered slack bot written in `python` which helps you to communicate with your [VWO](https://vwo.com/) account over slack.
 
+## Index
+
+- [Usage](#usage)
+- [Installation](#installation)
+    - [Run the bot](#run-the-bot)
+- [Dockerfile](#dockerfile)
+- [Miscelleneous](#miscelleneous)
+- [Tests](#tests-wip)
+- [Links](#links)
+- [License](#license)
+
 ## Usage
 
 Example command for help
