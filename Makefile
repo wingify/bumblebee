@@ -9,6 +9,9 @@ clean:
 deps:
 	pip install -r requirements.txt
 
+docs: clean
+	(cd docs && make html)
+
 run: clean
 	python run.py
 

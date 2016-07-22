@@ -6,32 +6,14 @@ You can setup ``bumblebee`` using any of the two methods
 Building from source
 --------------------
 
-Install the dependencies::
+- Assuming you have admin privileges in your slack team, go to the [Bot Users page](https://api.slack.com/bot-users).
 
-    $ git clone ssh://git@stash.wingify.com:7999/vwo/bumblebee_bot.git
-    $ cd bumblebee
-    $ virtualenv env              # Create virtual environment
-    $ source env/bin/activate     # Change default python to virtual one
-    (env)$ make deps
+- Create your new bot and give it a name.
 
-Before running the bot, you have to configure it for your VWO API token and slack API tokens. Assuming that you are in the directory, ``bumblebee``::
+- After you have added the integration, you will get an API key. That will be your `SLACK_BOT_TOKEN` token.
 
-    $ cd bumblebee
-    $ cp config.ini.example config.ini
-    $ cat config.ini
-    [slack]
-    SLACK_BOT_TOKEN=
-    BOT_ID=
-    BOT_NAME=
+- Get your `BOT_ID` by running the script below, making the appropriate changes
 
-    [vwo]
-    VWO_API_TOKEN=
-    ACCOUNT_ID=
-
-
-They are left blank, set to them up to dance with ``bumblebee``
-
-``BOT_ID`` should be retrieved using the script below::
 
     from slackclient import SlackClient
 
@@ -52,13 +34,47 @@ They are left blank, set to them up to dance with ``bumblebee``
             print("could not find bot user with the name " + BOT_NAME)
 
 
-Place this ``BOT_ID`` in your ``config.ini`` and run the bot::
+- Generate [vwo tokens](https://app.vwo.com/#/developers/tokens/)
+
+- Install the dependencies
+
+
+    $ git clone https://github.com/wingify/bumblebee.git
+    $ cd bumblebee
+    $ virtualenv env              # Create virtual environment
+    $ source env/bin/activate     # Change default python to virtual one
+    (env)$ make deps
+
+
+Before running the bot, you have to configure it for your VWO API token and slack API tokens. Assuming that you are in the directory, `bumblebee`
+
+
+    $ cd bumblebee
+    $ cp config.ini.example config.ini
+    $ cat config.ini
+    [slack]
+    SLACK_BOT_TOKEN=
+    BOT_ID=
+    BOT_NAME=
+
+    [vwo]
+    VWO_API_TOKEN=
+    ACCOUNT_ID=
+
+
+They are left blank, set to them up to dance with `bumblebee`
+
+
+## Run the bot
+
 
     (env)$ make run
 
-**NOTE**
 
-Check whether the bot can connect to the ``slack RTM API`` by running::
+**NOTE**:
+
+Check whether the bot can connect to the `slack RTM API` by running
+
 
     $ cd bumblebee
     $ python -m unittest tests.test_slack_api_auth
@@ -69,7 +85,7 @@ Dockerfile
 
 A quicker way to get up and running would be to build the ``Dockerfile`` here::
 
-    $ git clone ssh://git@stash.wingify.com:7999/vwo/bumblebee_bot.git
+    $ git clone clone https://github.com/wingify/bumblebee.git
     $ cd bumblebee_bot
 
 Next step would be to get your file ``config.ini``. And place the appropriate tokens.
